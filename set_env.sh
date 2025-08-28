@@ -57,6 +57,8 @@ echo "Exported REGION=$REGION"
 
 # --- Export Application-Specific Variables ---
 
+export ID_TOKEN=$(gcloud auth print-identity-token)
+
 # Vertex AI / GenAI
 export GOOGLE_GENAI_USE_VERTEXAI="TRUE"
 echo "Exported GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI"

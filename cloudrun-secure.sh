@@ -1,3 +1,5 @@
+export ID_TOKEN=$(gcloud auth print-identity-token)
+
 gcloud run deploy zoo-mcp-server \
     --no-allow-unauthenticated \
     --region=europe-west1 \
