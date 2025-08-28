@@ -46,9 +46,26 @@ gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT \
     --member=user:$(gcloud config get-value account) \
     --role='roles/run.invoker'
 
-echo "Setting ADC Credentials"
-gcloud auth application-default login
+if [ "$CLOUD_SHELL" = "true" ]; then
+  echo "Running in Google Cloud Shell."
+else
+  echo "Not running in Google Cloud Shell."
+  echo "Setting ADC Credentials"
+  gcloud auth application-default login
 
+fi
+
+if [ -n "$FIREBASE_DEPLOY_AGENT" ]; then
+echo "Running in Firebase Studio terminal"
+else
+echo "Not running in Firebase Studio terminal"
+fi
+
+if [ -f /etc/lsb-release ] && grep -q "CHROMEOS" /etc/lsb-release; then
+     echo "Running on ChromeOS"
+else
+      echo "Not running on ChromeOS"
+fi
 
 echo "--- Initial Setup complete ---"
 
