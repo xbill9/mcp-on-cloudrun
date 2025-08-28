@@ -41,12 +41,21 @@ gcloud services enable \
 
 
 echo "Adding IAM Roles"
+
+
 export GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
+
+  if curl -s -i metadata.google.internal | grep -q "Metadata-Flavor: Google"; then
+     echo "This VM is running on GCP Defaults to Service Account."
+  else
+
 gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT \
     --member=user:$(gcloud config get-value account) \
     --role='roles/run.invoker' 
-#    --quiet \
-#    --condition=None
+    --quiet \
+    --condition=None
+    
+    fi
 
 if [ "$CLOUD_SHELL" = "true" ]; then
   echo "Running in Google Cloud Shell."
