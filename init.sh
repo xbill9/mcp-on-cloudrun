@@ -45,7 +45,7 @@ echo "Adding IAM Roles"
 
 export GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
 
-  if curl -s -i metadata.google.internal | grep -q "Metadata-Flavor: Google"; then
+  if  [[ -z "$CLOUD_SHELL" ]] && curl -s -i metadata.google.internal | grep -q "Metadata-Flavor: Google"; then
      echo "This VM is running on GCP Defaults to Service Account."
   else
 
