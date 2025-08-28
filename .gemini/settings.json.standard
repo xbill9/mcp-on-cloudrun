@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "zoo-remote": {
+      "httpUrl": "https://zoo-mcp-server-$PROJECT_NUMBER.europe-west1.run.app/mcp/"
+    }
+  },
+  "hasSeenIdeIntegrationNudge": true
+}
