@@ -61,7 +61,7 @@ else
 echo "Not running in Firebase Studio terminal"
 fi
 
-if [ -f /etc/lsb-release ] && grep -q "CHROMEOS" /etc/lsb-release; then
+if [ -d "/mnt/chromeos" ] ; then
      echo "Running on ChromeOS"
 else
       echo "Not running on ChromeOS"
