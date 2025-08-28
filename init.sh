@@ -44,15 +44,19 @@ echo "Adding IAM Roles"
 export GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
 gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT \
     --member=user:$(gcloud config get-value account) \
-    --role='roles/run.invoker'
+    --role='roles/run.invoker' \
+    --quiet
 
 if [ "$CLOUD_SHELL" = "true" ]; then
   echo "Running in Google Cloud Shell."
 else
-  echo "Not running in Google Cloud Shell."
-  echo "Setting ADC Credentials"
-  gcloud auth application-default login
-
+  if curl -s -i metadata.google.internal | grep -q "Metadata-Flavor: Google"; then
+     echo "This VM is running on Google Cloud."
+  else
+    echo "Not running in Google Cloud VM or Shell."
+    echo "Setting ADC Credentials"
+    gcloud auth application-default login
+  fi
 fi
 
 if [ -n "$FIREBASE_DEPLOY_AGENT" ]; then
@@ -66,6 +70,8 @@ if [ -d "/mnt/chromeos" ] ; then
 else
       echo "Not running on ChromeOS"
 fi
+
+export ID_TOKEN=$(gcloud auth print-identity-token)
 
 echo "--- Initial Setup complete ---"
 

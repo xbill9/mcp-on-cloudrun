@@ -1,3 +1,5 @@
+echo "Deploying Cloud Run End Point in Secure Mode"
+
 export ID_TOKEN=$(gcloud auth print-identity-token)
 
 gcloud run deploy zoo-mcp-server \
